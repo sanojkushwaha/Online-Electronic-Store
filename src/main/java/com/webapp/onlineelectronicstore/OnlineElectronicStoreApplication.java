@@ -1,0 +1,13 @@
+package com.webapp.onlineelectronicstore;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class  OnlineElectronicStoreApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(OnlineElectronicStoreApplication.class, args);
+    }
+
+}
