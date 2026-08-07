@@ -228,5 +228,5 @@ The generated application JAR is written to `target/`.
 The OpenAPI documentation identifies this API as **Apache-2.0**. Add an explicit `LICENSE` file to the repository to make the licensing terms clear for all users and contributors.
 
 ---
-Author:
-Built by ❤️ Java Backend Engineer, [Sanoj Kushwaha](https://github.com/sanojkushwaha) 
+Author:-> 
+ Built by ❤️ Java Backend Engineer, [Sanoj Kushwaha](https://github.com/sanojkushwaha) 
