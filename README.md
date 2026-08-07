@@ -132,6 +132,10 @@ Once the service is running, open Swagger UI to inspect endpoints, schemas, and 
 http://localhost:9090/api/swagger-ui/index.html
 ```
 
+[**Open Swagger UI locally →**](http://localhost:9090/api/swagger-ui/index.html)
+
+Swagger UI lets you authorize with a JWT, enter request values, and send requests without a separate API client. Start the backend first; the link is available only on the machine where the API is running.
+
 ## Authentication
 
 Sign in to receive a JWT:
