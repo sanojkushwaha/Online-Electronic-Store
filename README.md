@@ -15,7 +15,13 @@
   <a href="#quick-start">Quick start</a> ·
   <a href="#api-reference">API reference</a> ·
   <a href="#documentation">Swagger UI</a> ·
-  <a href="#security">Security</a>
+<a href="#security">Security</a>
+</p>
+
+<p align="center">
+  <a href="http://localhost:9090/api/swagger-ui/index.html">
+    <img src="https://img.shields.io/badge/Open%20Swagger%20UI-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Open Swagger UI">
+  </a>
 </p>
 
 ## Overview
