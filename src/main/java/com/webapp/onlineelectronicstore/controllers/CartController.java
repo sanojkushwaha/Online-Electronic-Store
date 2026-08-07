@@ -7,6 +7,7 @@ import com.webapp.onlineelectronicstore.services.CartService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +21,7 @@ public class CartController {
     }
 
     // Add Product To Cart
-    @PostMapping("/{userId}/items")
+    @PostMapping("/{userId}")
     public ResponseEntity<CartDto> addItemToCart(
             @PathVariable String userId,
             @Valid @RequestBody AddItemToCartRequest request) {
@@ -31,6 +32,7 @@ public class CartController {
     }
 
     // Get User Cart
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{userId}")
     public ResponseEntity<CartDto> getCartByUser(
             @PathVariable String userId) {

@@ -6,6 +6,7 @@ import com.webapp.onlineelectronicstore.dtos.response.PageableResponse;
 import com.webapp.onlineelectronicstore.services.CategoryService;
 import com.webapp.onlineelectronicstore.services.ProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,13 @@ import java.util.UUID;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    @Autowired
     private CategoryService categoryService;
-
-    @Autowired
     private ProductService productService;
+    @Autowired
+    public CategoryController(CategoryService categoryService, ProductService productService) {
+        this.categoryService = categoryService;
+        this.productService = productService;
+    }
 
     // Create Category
     @PostMapping

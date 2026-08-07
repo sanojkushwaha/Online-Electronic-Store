@@ -1,5 +1,6 @@
 package com.webapp.onlineelectronicstore.dtos.response;
 
+import com.webapp.onlineelectronicstore.enums.Role;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -29,4 +30,6 @@ public class CartDto {
 
     @PositiveOrZero(message = "cart total cannot be negative")
     private double cartTotal;
+
+    private Role role;
 }

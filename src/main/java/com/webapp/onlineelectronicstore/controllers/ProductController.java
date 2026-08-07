@@ -6,6 +6,10 @@ import com.webapp.onlineelectronicstore.dtos.response.PageableResponse;
 import com.webapp.onlineelectronicstore.dtos.response.ProductDto;
 import com.webapp.onlineelectronicstore.services.FileService;
 import com.webapp.onlineelectronicstore.services.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,23 +26,34 @@ import java.io.InputStream;
 
 @RestController
 @RequestMapping("/products")
+//@CrossOrigin(origins = "http://localhost:4200") ==> This is used for communication b/w two diff origin app
+@Tag(name = "Product APIs", description = "Operations related to products")
 public class ProductController {
 
+    //DI
     private final ProductService productService;
-    @Autowired //DI
-    public ProductController(ProductService productService) {
+    private final FileService fileService;
+    public ProductController(ProductService productService, FileService fileService) {
         this.productService = productService;
+        this.fileService = fileService;
     }
-
-    @Autowired
-    private FileService fileService;
 
     @Value("${product.image.path}")
     private String imagePath;
 
 
     // Create Product
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
+    @Operation(
+            summary = "Create Product",
+            description = "Creates a new product in the database."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Product Created"),
+            @ApiResponse(responseCode = "400", description = "Invalid Request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized")
+    })
     public ResponseEntity<ProductDto> createProduct(
             @Valid @RequestBody ProductDto productDto) {
 
@@ -75,6 +91,7 @@ public class ProductController {
     }
 
     // Get Single Product
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/{productId}")
     public ResponseEntity<ProductDto> getProduct(
             @PathVariable String productId) {

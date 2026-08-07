@@ -3,6 +3,7 @@ package com.webapp.onlineelectronicstore.services.Impl;
 import com.webapp.onlineelectronicstore.dtos.response.PageableResponse;
 import com.webapp.onlineelectronicstore.dtos.response.UserDto;
 import com.webapp.onlineelectronicstore.entites.User;
+import com.webapp.onlineelectronicstore.enums.Role;
 import com.webapp.onlineelectronicstore.exceptions.ResourceNotFoundException;
 import com.webapp.onlineelectronicstore.helper.Helper;
 import com.webapp.onlineelectronicstore.repositories.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -32,10 +34,20 @@ public class UserServiceImpl implements UserService {
 
     Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ModelMapper mapper;
+    //constructor injection
+    private final UserRepository userRepository;
+    private final ModelMapper mapper;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder,
+                           ModelMapper mapper) {
+
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.mapper = mapper;
+    }
+
 
     @Value("${user.profile.image.path}")
     private String imagePath;
@@ -47,6 +59,13 @@ public class UserServiceImpl implements UserService {
         userdto.setUserId(userId);
         //dto->entity
         User user1 =dtoToEntity(userdto);
+
+        //set Role in user entity
+        user1.setRole(Role.ROLE_USER);
+        //set Encoded password before saving in db
+        user1.setPassword(passwordEncoder.encode(userdto.getPassword()));
+
+        //save user in db
         User savedUser = userRepository.save(user1);
         //entity->dto
         UserDto newuser =entityToDto(savedUser);
@@ -59,12 +78,17 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(UserDto userdto, String userId) {
         User user1 = userRepository.findById(userId).orElseThrow(() ->new ResourceNotFoundException("User not found with given " + "id"));
 
+        //set Role
+        user1.setRole(Role.ROLE_USER);
+
         user1.setName(userdto.getName());
         //email update
         user1.setPassword(userdto.getPassword());
         user1.setGender(userdto.getGender());
         user1.setAbout(userdto.getAbout());
         user1.setImageName(userdto.getImageName());
+        //save encoded password
+        user1.setPassword(passwordEncoder.encode(userdto.getPassword()));
         //save data
         User updatedUser = userRepository.save(user1);
         UserDto userDto = entityToDto(updatedUser);

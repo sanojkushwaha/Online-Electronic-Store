@@ -1,5 +1,6 @@
 package com.webapp.onlineelectronicstore.dtos.response;
 
+import com.webapp.onlineelectronicstore.enums.Role;
 import com.webapp.onlineelectronicstore.validate.ImageNameValid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -35,4 +36,6 @@ public class UserDto {
 
     @ImageNameValid
     private String imageName;
+
+    private Role role;
 }

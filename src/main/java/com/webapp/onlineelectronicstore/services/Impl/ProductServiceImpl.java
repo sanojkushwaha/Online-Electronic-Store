@@ -9,6 +9,7 @@ import com.webapp.onlineelectronicstore.helper.Helper;
 import com.webapp.onlineelectronicstore.repositories.CategoryRepository;
 import com.webapp.onlineelectronicstore.repositories.ProductRepository;
 import com.webapp.onlineelectronicstore.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -18,24 +19,19 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public ProductDto createProduct(ProductDto productDto) {
 
         Product product = modelMapper.map(productDto, Product.class);
-
-        // random productId
-        String productId = UUID.randomUUID().toString();
+        //print productid
+        System.out.println(product.getProductId());
         //added date
         product.setAddedDate(new Date());
 
@@ -43,8 +39,6 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findById(productDto.getCategoryId())
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Category not found"));
-
-        product.setCategory(category);
 
         product.setCategory(category);
 

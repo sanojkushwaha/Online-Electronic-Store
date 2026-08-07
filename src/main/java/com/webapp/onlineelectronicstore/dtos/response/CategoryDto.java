@@ -1,5 +1,6 @@
 package com.webapp.onlineelectronicstore.dtos.response;
 
+import com.webapp.onlineelectronicstore.enums.Role;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -22,5 +23,7 @@ public class CategoryDto {
 
     @NotBlank
     private String coverImage;
+
+    private Role role;
 
 }

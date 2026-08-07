@@ -22,13 +22,10 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto) {

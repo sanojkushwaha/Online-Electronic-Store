@@ -52,9 +52,8 @@ public class Product {
     private Date addedDate;
 
     // Many products belong to one category
-    @ManyToOne(cascade =CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-
 
 }

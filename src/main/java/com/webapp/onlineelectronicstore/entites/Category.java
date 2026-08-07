@@ -1,9 +1,7 @@
 package com.webapp.onlineelectronicstore.entites;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.webapp.onlineelectronicstore.enums.Role;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -26,6 +24,11 @@ public class Category {
     private String description;
 
     private String coverImage;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="role")
+    private Role role;
+
 
     //other attribute write here....
 

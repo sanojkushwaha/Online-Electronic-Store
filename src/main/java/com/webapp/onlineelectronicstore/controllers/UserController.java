@@ -8,6 +8,7 @@ import com.webapp.onlineelectronicstore.services.FileService;
 import com.webapp.onlineelectronicstore.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,13 @@ import java.io.InputStream;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private FileService fileService;
+
+    public UserController(FileService fileService, UserService userService) {
+        this.fileService = fileService;
+        this.userService = userService;
+    }
 
     @Value("${user.profile.image.path}")
     private String imageUploadPath;
