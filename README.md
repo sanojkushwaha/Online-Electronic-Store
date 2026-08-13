@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="http://localhost:9090/api/swagger-ui/index.html">
+  <a href="https://online-electronic-store-api.onrender.com/api/swagger-ui/index.html">
     <img src="https://img.shields.io/badge/Open%20Swagger%20UI-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Open Swagger UI">
   </a>
 </p>
